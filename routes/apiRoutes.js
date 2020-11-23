@@ -1,6 +1,6 @@
-const fs = require("fs");
-const path = require("path");
-const uniqueid = require('uniqueid');
+// const fs = require("fs");
+// const path = require("path");
+// const uniqueid = require("uniqueid");
 const dbNotesData = require("../db/db.json");
 
 
@@ -12,34 +12,26 @@ module.exports = function(app) {
 
   app.post("/api/notes", function(req, res) {
     let newNote = req.body;
-
-    
-    
-    if (tableData.length < 5) {
-      tableData.push(req.body);
-      res.json(true);
-    }
-    else {
-      waitListData.push(req.body);
-      res.json(false);
-    }
+    // newNote.id = uniqueid();
+    dbNotesData.push(newNote);
+    res.json(true);
   });
-  // ---------------------------------------------------------------------------
-  // I added this below code so you could clear out the table while working with the functionality.
-  // Don"t worry about it!
-  app.post("/api/clear", function(req, res) {
-    // Empty out the arrays of data
-    tableData.length = 0;
-    waitListData.length = 0;
-    res.json({ ok: true });
+
+  app.delete("/api/notes/:id", function(req, res) {
+    let uniqueNote = req.params.id;
+    
+    for (let i = 0; i < dbNotesData.length; i++) {
+      let note = dbNotesData[i];
+
+      if (uniqueNote === note.id) {
+        dbNotesData.splice(i, 1);
+      }      
+    }
+    res.json(dbNotesData);
   });
 };
 
 
-// function renderHTML(filePath, res) {
-//   return fs.readFile(__dirname + filePath, function(err, data) {
-//     if (err) throw err;
-//     res.writeHead(200, { "Content-Type": "text/html" });
-//     res.end(data);
-//   });
-// }
+// // 2. A filter that runs through the original array and creates a new array containing only its numbers larger than 5(`moreThan5Array`)
+
+// const moreThan5Array = originalArray.filter(num => num > 5);
