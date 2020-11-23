@@ -1,4 +1,4 @@
-// const fs = require("fs");
+const fs = require("fs");
 // const path = require("path");
 const uniqid = require("uniqid");
 const dbNotesData = require("../db/db.json");
@@ -14,6 +14,10 @@ module.exports = function(app) {
     let newNote = req.body;
     newNote.id = uniqid();
     dbNotesData.push(newNote);
+    fs.writeFile('db.json', dbNotesData, function (err) {
+      if (err) throw err;
+      console.log('New note added and new file written');
+    });
     res.json(dbNotesData);
   });
 
@@ -27,11 +31,12 @@ module.exports = function(app) {
         dbNotesData.splice(i, 1);
       }      
     }
+    fs.writeFile('db.json', dbNotesData, function (err) {
+      if (err) throw err;
+      console.log('Note deleted and new file written');
+    });
     res.json(dbNotesData);
   });
 };
 
 
-// // 2. A filter that runs through the original array and creates a new array containing only its numbers larger than 5(`moreThan5Array`)
-
-// const moreThan5Array = originalArray.filter(num => num > 5);
