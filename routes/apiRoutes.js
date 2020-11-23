@@ -14,7 +14,7 @@ module.exports = function(app) {
     let newNote = req.body;
     newNote.id = uniqid();
     dbNotesData.push(newNote);
-    res.json(true);
+    res.json(dbNotesData);
   });
 
   app.delete("/api/notes/:id", function(req, res) {
