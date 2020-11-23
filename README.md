@@ -1,7 +1,7 @@
   # noteTaker
 
   ## Link to Github Repo
-  https://github.com/dmcc789/README_Generator
+  https://github.com/dmcc789/noteTaker
 
   ## Description
   noteTaker is an application utilizing node.js and express.js.  It is run via the command line and creates an HTML file that can  based on a series of questions utilizing the inquirer npm package.
