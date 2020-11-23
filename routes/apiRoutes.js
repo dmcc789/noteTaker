@@ -1,6 +1,6 @@
 // const fs = require("fs");
 // const path = require("path");
-// const uniqueid = require("uniqueid");
+const uniqid = require("uniqid");
 const dbNotesData = require("../db/db.json");
 
 
@@ -12,7 +12,7 @@ module.exports = function(app) {
 
   app.post("/api/notes", function(req, res) {
     let newNote = req.body;
-    // newNote.id = uniqueid();
+    newNote.id = uniqid();
     dbNotesData.push(newNote);
     res.json(true);
   });
